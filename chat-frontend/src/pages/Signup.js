@@ -33,7 +33,7 @@ function Signup() {
         data.append("upload_preset", "chatSignin");
         try {
             setUploadingImg(true);
-            let res = await fetch("https://api.cloudinary.com/v1_1/da8acjr2s/image/upload", {
+            let res = await fetch("https://api.cloudinary.com/v1_1/<this has to be yours>/image/upload", {
                 method: "post",
                 body: data,
             });

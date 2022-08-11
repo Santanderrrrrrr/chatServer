@@ -30,7 +30,7 @@ const rooms = ['general', 'tech', 'finance', 'crypto']
 // })
 
 const server = require('http').createServer(app)
-const PORT = 3005
+const PORT = 3006
 const io = require('socket.io')(server, {
     cors:{
         origin:'http://localhost:3000',
@@ -56,10 +56,12 @@ io.on('connection', (socket)=>{
     })
     socket.on('join-room', async(newRoom, previousRoom)=>{
         socket.join(newRoom)
+        console.log("user is leaving room"+ previousRoom)
         socket.leave(previousRoom)
         let roomMessages = await funcs.getLastMessagesFromRoom(newRoom)
         roomMessages=funcs.sortRoomMessagesByDate(roomMessages)
         socket.emit('room-messages', roomMessages)
+        console.log("Messages to "+ newRoom + " emitted")
     })
 
     socket.on('message-room', async (room, content, sender, time, date)=>{
